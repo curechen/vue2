@@ -7,14 +7,14 @@ import { isIE, isIOS, isNative } from './env'
 
 export let isUsingMicroTask = false
 
-const callbacks = []
+const callbacks = []  // nextTick中执行的函数会被以数组的形式进行存储
 let pending = false
 
 function flushCallbacks () {
   pending = false
   const copies = callbacks.slice(0)
   callbacks.length = 0
-  for (let i = 0; i < copies.length; i++) {
+  for (let i = 0; i < copies.length; i++) { // 遍历数组，依次执行传入的函数
     copies[i]()
   }
 }
@@ -84,7 +84,7 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
   }
 }
 
-export function nextTick (cb?: Function, ctx?: Object) {
+export function nextTick (cb?: Function, ctx?: Object) {  // 可以看到传入的函数会被储存到一个数组中，然后被统一执行
   let _resolve
   callbacks.push(() => {
     if (cb) {
