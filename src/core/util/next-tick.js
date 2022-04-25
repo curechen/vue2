@@ -99,7 +99,7 @@ export function nextTick (cb?: Function, ctx?: Object) {  // 可以看到传入�
   })
   if (!pending) {
     pending = true
-    timerFunc()
+    timerFunc() // 使用微任务或者宏任务执行回调函数
   }
   // $flow-disable-line
   if (!cb && typeof Promise !== 'undefined') {
